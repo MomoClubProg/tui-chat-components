@@ -1,0 +1,15 @@
+{
+  "name": "tui-chat-components",
+  "version": "0.0.1",
+  "description": "TUI chat components for a tui chatbox project!",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "keywords": [],
+  "author": "Matias Vazquez-Levi",
+  "license": "ISC",
+  "dependencies": {
+    "blessed": "^0.1.81"
+  }
+}
