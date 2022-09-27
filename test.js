@@ -1,16 +1,16 @@
-const TUI = require('./index.js')
+const { Chat } = require('./index.js')
 
-const tui = new TUI();
+const chat = new Chat();
 
-tui.addMessage('UserA', 'first message!');
+chat.addMessage('UserA', 'first message!');
 
-tui.addPrompt(({ user, message })=>{
+chat.addPrompt(({ user, message })=>{
   // Send message to server
 });
 
-tui.addFooter(`\tESC - Command Mode\t\tDown Arrow - Insert Mode`);
+chat.addFooter(`\tESC - Command Mode\t\tDown Arrow - Insert Mode`);
 
-tui.render();
+chat.render();
 
 
 
