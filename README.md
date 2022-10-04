@@ -9,26 +9,26 @@ Simple chat components for the `tui`
 
 ```js
 
-const TUI = require('tui-chat-components');
+const { Chat } = require('tui-chat-components');
 
-const tui = new TUI('MyUserName');
+const chat = new Chat('MyUserName');
 
-tui.addMessage('UserA', 'first message!');
+chat.addMessage('UserA', 'first message!');
 
-tui.addPrompt(({ user, message }) => {
+chat.addPrompt(({ user, message }) => {
   // Send data to server
 });
 
-tui.addFooter(`\tESC - Command Mode\t\tDown Arrow - Insert Mode`);
+chat.addFooter(`\tESC - Command Mode\t\tDown Arrow - Insert Mode`);
 
-tui.render();
+chat.render();
 
 ```
 
 
 ### Methods
 
-#### `tui.addMessage(username, message)`
+#### `chat.addMessage(username, message)`
 
 Add a message to the channel
 
@@ -38,14 +38,14 @@ Add a message to the channel
 * message `string`
 * * The message sent by the user
 
-#### `tui.addPrompt(callback)`
+#### `chat.addPrompt(callback)`
 
 Add a text box for the user to send messages
 
 * callback `(message) => void`
 * * The action to perform when a message is sent
 
-#### `tui.addFooter(text)`
+#### `chat.addFooter(text)`
 
 Add a message under the prompt
 
