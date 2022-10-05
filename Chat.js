@@ -1,6 +1,20 @@
 const blessed = require('blessed');
 
 class Chat {
+
+  /**
+  * @constructor
+  * 
+  * @param {String} username - The client's user username
+  * @param {String} userTag - The client's user tag
+  *
+  * @example 
+  * <pre><code>
+  *   
+  *   let chat = new Chat('UserA', '4234');
+  *   
+  * </code></pre>
+  */ 
   constructor(username = 'UserA', userTag = '000000000000000000000000') {
     this.screen = blessed.screen({
        smartCSR:true,
@@ -54,19 +68,22 @@ class Chat {
     this.streak = 1;
   }
 
-  static palette = ['31', '32', '33', '34', '35', '36',  '96', '94', '91', '92', '93', '95']
-  static colorFromName(name) {
-    let sum = 0;
-    for (let i = 0; i < name.length; i++) {
-      if (("0123456789").includes(name[i]))
-        sum += +name[i];  
-      else sum += name.charCodeAt(i)/8;
-      if (Math.floor(sum) >= Chat.palette.length) sum -= Chat.palette.length+1;
-    }
-    return Chat.palette[Math.max(0, Math.min(Chat.palette.length, Math.floor(sum-1)))];
-  }
-
-  addMessage(username, content, userTag) {
+  /**
+  * Add a message to the chat box interface
+  *
+  * @param {String} username - The user name to display
+  * @param {String} content - The content of the message to display
+  * @param {String} [userTag] - The user tag (display's next to the name in brackets) 
+  *
+  *
+  * @example 
+  * <pre><code>
+  *   
+  *   chat.addMessage('UserB', 'Hello world back!', '1241');
+  *   
+  * </code></pre>
+  */ 
+  addMessage(username, content, userTag = Math.round(Math.random(1000, 9999))) {
     if (content.length === 0) return;
     this.messageCount++;
 
@@ -95,28 +112,27 @@ class Chat {
    }))
 
   }
-
-  getLastUser() {
-    return this.userHistory[this.userHistory.length - 1];
-  }
-
-  focusScroll() {
-    this.scrollUp(this.scroll)
-  }
-
-  scrollUp(n) {
-    this.scroll += n;
-    this.messages.forEach((m,i) => {
-      m.bottom += n;
-    });
-  }
-
-  isDifferentUser() {
-    if (this.userHistory.length <= 1) return true;
-    return  this.userHistory[this.userHistory.length - 2].username !== this.userHistory[this.userHistory.length - 1].username &&
-      this.userHistory[this.userHistory.length - 2].userTag !== this.userHistory[this.userHistory.length - 1].userTag
-  }
-    
+   
+  /**
+  * add a chat prompt
+  * 
+  * @param {(Message) => void} sendMessage - Callback with a `Message` object as argument
+  *
+  *
+  * @example 
+  * <pre><code>
+  *   
+  *   // add a prompt and do nothing on enter
+  *   chat.addPrompt(() => {});   
+  *
+  *   // add a prompt and `console.log` data on enter
+  *   chat.addPrompt((msg) => {
+  *     console.log(msg);
+  *     // on enter event
+  *   })
+  *   
+  * </code></pre>
+  */ 
   addPrompt(sendMessage) {
     this.prompt = blessed.textbox({
       parent:this.form,
@@ -151,6 +167,18 @@ class Chat {
     });
   }
 
+  /**
+  * Add a footer (Text at the bottom of the screen
+  *
+  * @param {String} content - The text writtern in the footer
+  *
+  * @example 
+  * <pre><code>
+  *
+  *   chat.addFooter('Press ESC-q to quit!');
+  *   
+  * </code></pre>
+  */ 
   addFooter(content) {
     this.prompt.bottom++;
     this.scrollUp(1);
@@ -165,6 +193,27 @@ class Chat {
     });
   }
 
+  getLastUser() {
+    return this.userHistory[this.userHistory.length - 1];
+  }
+
+  focusScroll() {
+    this.scrollUp(this.scroll)
+  }
+
+  scrollUp(n) {
+    this.scroll += n;
+    this.messages.forEach((m,i) => {
+      m.bottom += n;
+    });
+  }
+
+  isDifferentUser() {
+    if (this.userHistory.length <= 1) return true;
+    return  this.userHistory[this.userHistory.length - 2].username !== this.userHistory[this.userHistory.length - 1].username &&
+      this.userHistory[this.userHistory.length - 2].userTag !== this.userHistory[this.userHistory.length - 1].userTag
+  }
+
   clear() {
     this.form.reset();
     this.prompt.focus();
@@ -172,6 +221,18 @@ class Chat {
 
   render() {
     this.screen.render();
+  }
+
+  static palette = ['31', '32', '33', '34', '35', '36',  '96', '94', '91', '92', '93', '95']
+  static colorFromName(name) {
+    let sum = 0;
+    for (let i = 0; i < name.length; i++) {
+      if (("0123456789").includes(name[i]))
+        sum += +name[i];  
+      else sum += name.charCodeAt(i)/8;
+      if (Math.floor(sum) >= Chat.palette.length) sum -= Chat.palette.length+1;
+    }
+    return Chat.palette[Math.max(0, Math.min(Chat.palette.length, Math.floor(sum-1)))];
   }
 };
 

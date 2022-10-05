@@ -2,6 +2,18 @@
 const blessed = require('blessed');
 
 class Form {
+
+  /**
+  *
+  * @constructor
+  * 
+  * @example
+  * <pre><code>
+  *
+  *   let form = new Form(); 
+  *
+  * </code><pre>
+  */ 
   constructor() {
     this.screen = blessed.screen({
        smartCSR:true,
@@ -27,8 +39,28 @@ class Form {
     this.callback = () => {};
     this.values = {};
 
+    this.screen.key('q', function () {
+      this.destroy();
+      process.exit();
+    });
+
   }
 
+  /**
+  *
+  * Create a form text input
+  * 
+  * @param {String} label - The label of the input prompt
+  * 
+  * @example
+  * <pre><code>
+  *
+  *   form.addPrompt('Username'); 
+  *   form.addPrompt('Password'); 
+  *   form.addPrompt('Favorite Animal'); 
+  *
+  * </code><pre>
+  */ 
   addPrompt(label) {
     const lbl = blessed.text({
       parent: this.form,
@@ -55,7 +87,25 @@ class Form {
     this.rowCount += 3;
   }
 
-  addSubmit(callback) {
+
+  /**
+  *
+  * Add a submit button & event to the form
+  * 
+  * @param {(any) => void} callback - The submit event callback
+  * 
+  * @example
+  * <pre><code>
+  *
+  *   form.addPrompt('myTextArea');
+  * 
+  *   form.addSubmit((data) => {
+  *       console.log(data.myTextArea); 
+  *   }); 
+  *
+  * </code><pre>
+  */ 
+  addSubmit(callback = () => {}) {
     const btn = blessed.button({
       parent: this.form,
       content: 'CHAT',
@@ -75,8 +125,6 @@ class Form {
       height: 3,
       left: 'center',
     })
-
-
 
     btn.on('press', ()=>{
       this.form.submit();
