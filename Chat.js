@@ -5,15 +5,13 @@ class Chat {
   /**
   * @constructor
   * 
-  * @param {String} username - The client's user username
-  * @param {String} userTag - The client's user tag
+  * @param {String} - The client's user username
+  * @param {String} - The client's user tag
   *
   * @example 
-  * <pre><code>
   *   
   *   let chat = new Chat('UserA', '4234');
-  *   
-  * </code></pre>
+  * 
   */ 
   constructor(username = 'UserA', userTag = '000000000000000000000000') {
     this.screen = blessed.screen({
@@ -77,11 +75,9 @@ class Chat {
   *
   *
   * @example 
-  * <pre><code>
   *   
   *   chat.addMessage('UserB', 'Hello world back!', '1241');
   *   
-  * </code></pre>
   */ 
   addMessage(username, content, userTag = Math.round(Math.random(1000, 9999))) {
     if (content.length === 0) return;
@@ -116,11 +112,10 @@ class Chat {
   /**
   * add a chat prompt
   * 
-  * @param {(Message) => void} sendMessage - Callback with a `Message` object as argument
+  * @param {Function} sendMessage - Callback with a `Message` object as argument
   *
   *
   * @example 
-  * <pre><code>
   *   
   *   // add a prompt and do nothing on enter
   *   chat.addPrompt(() => {});   
@@ -131,7 +126,6 @@ class Chat {
   *     // on enter event
   *   })
   *   
-  * </code></pre>
   */ 
   addPrompt(sendMessage) {
     this.prompt = blessed.textbox({
@@ -173,11 +167,9 @@ class Chat {
   * @param {String} content - The text writtern in the footer
   *
   * @example 
-  * <pre><code>
   *
   *   chat.addFooter('Press ESC-q to quit!');
   *   
-  * </code></pre>
   */ 
   addFooter(content) {
     this.prompt.bottom++;

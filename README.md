@@ -2,7 +2,11 @@
 
 Simple chat components for the `tui`
 
+## Install
 
+```
+npm i tui-chat-components
+```
 
 
 ### Example
@@ -25,31 +29,6 @@ chat.render();
 
 ```
 
+Documentation for the `Chat` is accessible [here](./docs/Chat.md)
 
-### Methods
-
-#### `chat.addMessage(username, message)`
-
-Add a message to the channel
-
-* username `string`
-* * The name of the user
-
-* message `string`
-* * The message sent by the user
-
-#### `chat.addPrompt(callback)`
-
-Add a text box for the user to send messages
-
-* callback `(message) => void`
-* * The action to perform when a message is sent
-
-#### `chat.addFooter(text)`
-
-Add a message under the prompt
-
-* text `string`
-* * The text of the footer
-
-
+Documentation for the `Form` is accessible [here](./docs/Form.md)

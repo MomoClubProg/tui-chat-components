@@ -8,11 +8,9 @@ class Form {
   * @constructor
   * 
   * @example
-  * <pre><code>
   *
   *   let form = new Form(); 
   *
-  * </code><pre>
   */ 
   constructor() {
     this.screen = blessed.screen({
@@ -53,13 +51,11 @@ class Form {
   * @param {String} label - The label of the input prompt
   * 
   * @example
-  * <pre><code>
   *
   *   form.addPrompt('Username'); 
   *   form.addPrompt('Password'); 
   *   form.addPrompt('Favorite Animal'); 
   *
-  * </code><pre>
   */ 
   addPrompt(label) {
     const lbl = blessed.text({
@@ -92,10 +88,9 @@ class Form {
   *
   * Add a submit button & event to the form
   * 
-  * @param {(any) => void} callback - The submit event callback
+  * @param {Function} callback - The submit event callback
   * 
   * @example
-  * <pre><code>
   *
   *   form.addPrompt('myTextArea');
   * 
@@ -103,7 +98,6 @@ class Form {
   *       console.log(data.myTextArea); 
   *   }); 
   *
-  * </code><pre>
   */ 
   addSubmit(callback = () => {}) {
     const btn = blessed.button({
