@@ -1,6 +1,6 @@
 {
   "name": "tui-chat-components",
-  "version": "0.0.5",
+  "version": "0.1.0",
   "description": "TUI chat components for a tui chatbox project!",
   "main": "index.js",
   "scripts": {
