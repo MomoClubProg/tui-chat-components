@@ -13,15 +13,20 @@ class Chat {
   *   let chat = new Chat('UserA', '4234');
   * 
   */ 
-  constructor(username = 'UserA', userTag = '000000000000000000000000') {
+  constructor(username = 'UserA', userTag = '000000000000000000000000', quitCallback = () => {}) {
+    this.quitCallback = quitCallback;
+
     this.screen = blessed.screen({
        smartCSR:true,
-        cursor: {
-          artificial: true,
-          shape: 'line',
-          blink: true,
-          color: null 
-        }
+       alwaysScroll:true,
+       scrollable: true,
+       scrollbar: true,
+       cursor: {
+         artificial: true,
+         shape: 'line',
+         blink: true,
+         color: null 
+       }
     });
 
     this.screen.key('9', () => {
@@ -33,6 +38,7 @@ class Chat {
     });
 
     this.screen.key('q', function () {
+      quitCallback();
       this.destroy();
       process.exit();
     });
@@ -202,8 +208,10 @@ class Chat {
 
   isDifferentUser() {
     if (this.userHistory.length <= 1) return true;
-    return  this.userHistory[this.userHistory.length - 2].username !== this.userHistory[this.userHistory.length - 1].username &&
-      this.userHistory[this.userHistory.length - 2].userTag !== this.userHistory[this.userHistory.length - 1].userTag
+    return  !(
+      this.userHistory[this.userHistory.length - 2].username === this.userHistory[this.userHistory.length - 1].username &&
+      this.userHistory[this.userHistory.length - 2].userTag === this.userHistory[this.userHistory.length - 1].userTag
+    )
   }
 
   clear() {
